@@ -13,3 +13,11 @@ COMPANY_DICT = {
     'name': 'Job Convo',
     'created': '2017-02-10 00:00:00+00:00',
 }
+
+PERSON_DICT = {
+    'id': 'de7f2b83-4f2e-400b-9f59-9bc653c8e385',
+    'name': 'Regis',
+    'email': 'regis.santos.100@gmail.com',
+    'phone': '11 98765-4321',
+    'created': '2017-02-10 03:14:00+00:00',
+}

@@ -28,3 +28,23 @@ class Company(TimeStampedModel):
 
     # def get_absolute_url(self):
     #     return r('crm:company_detail', pk=self.pk)
+
+
+class Person(TimeStampedModel):
+    id = models.UUIDField(primary_key=True, unique=True,
+                          editable=False, default=_createHash)
+    name = models.CharField('nome', max_length=50, unique=True)
+    email = models.EmailField()
+    phone = models.CharField('telefone', max_length=20, null=True, blank=True)
+    user = models.ForeignKey(
+        User, verbose_name=u'usuário', related_name='person_user')
+    company = models.ForeignKey(
+        'Company', verbose_name=u'empresa', related_name='person_company')
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = u'pessoa'
+        verbose_name_plural = u'pessoas'
+
+    def __unicode__(self):
+        return self.name
