@@ -38,3 +38,22 @@ class Person(UUIDModel, TimeStampedModel):
 
     def __unicode__(self):
         return self.name
+
+
+STATUS = (
+    ('fu', 'fazer follow up'),
+    ('na', 'não aprovado'),
+    ('su', 'sucesso'),
+)
+
+
+class Status(UUIDModel, TimeStampedModel):
+    user = models.ForeignKey(
+        User, verbose_name=u'usuário', related_name='status_user')
+    company = models.ForeignKey(
+        'Company', verbose_name=u'empresa', related_name='status_company')
+    detail = models.CharField('detalhe', max_length=100, null=True, blank=True)
+    next_contact = models.CharField(
+        u'próximo contato', max_length=50, null=True, blank=True)
+    status = models.CharField('tipo', max_length=2,
+                              choices=STATUS, null=True, blank=True)
