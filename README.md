@@ -64,6 +64,19 @@ Python 2.7.12
 django==1.8.17
 ```
 
+## Clonando e rodando o projeto
+
+```bash
+git clone https://github.com/rg3915/jc-challenge.git
+cd jc-challenge
+virtualenv -p python2.7 .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python contrib/secret_gen.py
+python manage.py migrate
+python manage.py runserver
+```
+
 [0]: http://pip.readthedocs.org/en/latest/
 [1]: https://virtualenv.pypa.io/en/latest/
 [2]: https://www.djangoproject.com/download/
