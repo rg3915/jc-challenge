@@ -32,6 +32,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # thirty apps
+    'django_extensions',
+    'bootstrapform',
+    # my apps
     'myproject.myauth',
     'myproject.crm',
 )

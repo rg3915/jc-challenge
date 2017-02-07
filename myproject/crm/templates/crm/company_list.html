@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Empresas{% endblock title %}
+
+{% block content %}
+
+<form class="navbar-form navbar-right" action="." method="get">
+  <!-- add -->
+  <a href="{% url 'crm:company_add' %}">
+    <button type="button" class="btn btn-primary">
+      <span class="glyphicon glyphicon-plus"></span> Adicionar
+    </button>
+  </a>
+  <!-- search form -->
+  <div class="form-group">
+    <input id="search_box" name="search_box" type="text" placeholder="Search..." class="form-control">
+    <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-search"></span></button>
+  </div>
+</form>
+
+<h2>Lista de Empresas</h2>
+
+{% if object_list %}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Empresa</th>
+        <th>Usuário</th>
+        <th>Criado em</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for company in object_list %}
+        <td><a href="{ company.get_absolute_url }}">{{ company.name }}</a></td>
+        <td>{{ company.user }}</td>
+        <td>{{ company.created|date:"d/m/Y" }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <div class="alert alert-warning text-center">
+    <p>Sem itens na lista.</p>
+    <!-- add -->
+    <a href="{% url 'crm:company_add' %}">
+      <button type="button" class="btn btn-primary">
+        <span class="glyphicon glyphicon-plus"></span> Adicionar
+      </button>
+    </a>
+  </div>
+{% endif %}
+
+<div>
+  {% if count > 0 %}
+    <hr>
+    <h3>{{ object_list|length }} contact{{ object_list|length|pluralize }}</h3>
+    <h4><b>Total:</b> {{ page_obj.paginator.count }} contact{{ page_obj.paginator.count|pluralize }}</h4>
+  {% endif %}
+</div>
+
+{% endblock content %}
