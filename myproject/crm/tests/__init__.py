@@ -9,13 +9,13 @@ USER_DICT = {
 }
 
 COMPANY_DICT = {
-    'id': '83c468a9-e3cc-4b36-a917-cbcd0276961a',
+    'id': 'e09eb8984c6f4f5fa7050ae46987e1dc',
     'name': 'Job Convo',
     'created': '2017-02-10 00:00:00+00:00',
 }
 
 PERSON_DICT = {
-    'id': 'de7f2b83-4f2e-400b-9f59-9bc653c8e385',
+    'id': '9522ab37ec3549aca136c91ba8b506d9',
     'name': 'Regis',
     'email': 'regis.santos.100@gmail.com',
     'phone': '11 98765-4321',

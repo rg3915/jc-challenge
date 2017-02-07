@@ -1,6 +1,20 @@
 # -*- coding: utf-8 -*-
+import uuid
 from django.db import models
 from localflavor.br.br_states import STATE_CHOICES
+
+
+def _createHash():
+    # Gera um uuid de 32 caracteres
+    return str(uuid.uuid4().hex)
+
+
+class UUIDModel(models.Model):
+    id = models.UUIDField(primary_key=True, unique=True,
+                          editable=False, default=_createHash)
+
+    class Meta:
+        abstract = True
 
 
 class TimeStampedModel(models.Model):
