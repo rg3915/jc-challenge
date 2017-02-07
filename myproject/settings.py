@@ -33,6 +33,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myproject.myauth',
+    'myproject.crm',
 )
 
 MIDDLEWARE_CLASSES = (
