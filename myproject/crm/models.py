@@ -18,8 +18,8 @@ class Company(UUIDModel, TimeStampedModel):
     def __unicode__(self):
         return self.name
 
-    # def get_absolute_url(self):
-    #     return r('crm:company_detail', pk=self.pk)
+    def get_absolute_url(self):
+        return r('crm:company_detail', pk=str(self.pk))
 
 
 class Person(UUIDModel, TimeStampedModel):
