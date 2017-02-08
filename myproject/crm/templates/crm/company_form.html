@@ -1,21 +1,20 @@
-{% extends "base.html" %}
-
 {% load bootstrap %}
 
-{% block title %}Company Form{% endblock title %}
+<form class="js-company-create-form" action="{% url 'crm:company_add' %}" method="POST">
+  <div class="modal-header">
+    <button class="close" aria-label="Close" data-dismiss="modal" type="button">
+      <span aria-hidden="True">&times;</span>
+    </button>
+    <h4 class="modal-title">Nova Empresa</h4>
+  </div> <!-- header -->
 
-{% block content %}
+  <div class="modal-body">
+    {% csrf_token %}
+    {{ form|bootstrap_horizontal }}
+  </div><!-- body -->
 
-<form class="form-horizontal col-sm-6" action="." method="POST">
-  <legend>Adicionar Empresa</legend>
-  {% csrf_token %}
-  {{ form|bootstrap_horizontal }}
-
-  <div class="form-group">
-    <div class="col-sm-10 col-sm-offset-2">
-      <button type="submit" id="id_submit" class="btn btn-primary">Salvar</button>
-    </div>
-  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+    <button type="submit" class="btn btn-primary" >Salvar</button>
+  </div><!-- footer -->
 </form>
-
-{% endblock content %}

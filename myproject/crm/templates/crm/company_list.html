@@ -7,7 +7,7 @@
 <form class="navbar-form navbar-right" action="." method="get">
   <!-- add -->
   <a href="{% url 'crm:company_add' %}">
-    <button type="button" class="btn btn-primary">
+    <button type="button" class="btn btn-primary js-create-company" data-url="{% url 'crm:company_add' %}">
       <span class="glyphicon glyphicon-plus"></span> Adicionar
     </button>
   </a>
@@ -21,7 +21,7 @@
 <h2>Lista de Empresas</h2>
 
 {% if object_list %}
-  <table class="table table-striped">
+  <table class="table table-striped" id="company-table">
     <thead>
       <tr>
         <th>Empresa</th>
@@ -56,6 +56,13 @@
     <h3>{{ object_list|length }} contact{{ object_list|length|pluralize }}</h3>
     <h4><b>Total:</b> {{ page_obj.paginator.count }} contact{{ page_obj.paginator.count|pluralize }}</h4>
   {% endif %}
+</div>
+
+<!-- modal -->
+<div id="modal-company" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
 </div>
 
 {% endblock content %}
