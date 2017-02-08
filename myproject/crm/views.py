@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.core.urlresolvers import reverse_lazy as r
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.views.generic import ListView, DetailView, DeleteView
 from .mixins import CounterMixin
@@ -44,6 +45,17 @@ def company_create(request):
         form = CompanyForm(request.POST)
     else:
         form = CompanyForm()
+    return company_create_form(request, form, 'crm/company_form.html')
+
+
+def company_update(request, pk):
+    company = get_object_or_404(Company, pk=pk)
+
+    if request.method == 'POST':
+        form = CompanyForm(request.POST, instance=company)
+    else:
+        form = CompanyForm(instance=company)
+
     return company_create_form(request, form, 'crm/company_form.html')
 
 
