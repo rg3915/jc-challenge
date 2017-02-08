@@ -2,16 +2,9 @@
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.views.generic import ListView
+from .mixins import CounterMixin
 from .models import Company
 from .forms import CompanyForm
-
-
-class CounterMixin(object):
-
-    def get_context_data(self, **kwargs):
-        context = super(CounterMixin, self).get_context_data(**kwargs)
-        context['count'] = self.get_queryset().count()
-        return context
 
 
 class CompanyList(CounterMixin, ListView):
