@@ -18,6 +18,13 @@ class CompanyList(CounterMixin, ListView):
     model = Company
     paginate_by = 10
 
+    def get_queryset(self):
+        w = Company.objects.all()
+        q = self.request.GET.get('search_box')
+        if q is not None:
+            w = w.filter(name__icontains=q)
+        return w
+
 
 def company_create_form(request, form, template_name):
     data = {}
