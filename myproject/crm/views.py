@@ -6,7 +6,15 @@ from .models import Company
 from .forms import CompanyForm
 
 
-class CompanyList(ListView):
+class CounterMixin(object):
+
+    def get_context_data(self, **kwargs):
+        context = super(CounterMixin, self).get_context_data(**kwargs)
+        context['count'] = self.get_queryset().count()
+        return context
+
+
+class CompanyList(CounterMixin, ListView):
     model = Company
     paginate_by = 10
 
