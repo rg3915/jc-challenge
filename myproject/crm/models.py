@@ -29,7 +29,7 @@ class Person(UUIDModel, TimeStampedModel):
     user = models.ForeignKey(
         User, verbose_name=u'usuário', related_name='person_user')
     company = models.ForeignKey(
-        'Company', verbose_name=u'empresa', related_name='person_company')
+        'Company', verbose_name='empresa', related_name='person_company')
 
     class Meta:
         ordering = ['name']
@@ -51,7 +51,7 @@ class Status(UUIDModel, TimeStampedModel):
     user = models.ForeignKey(
         User, verbose_name=u'usuário', related_name='status_user')
     company = models.ForeignKey(
-        'Company', verbose_name=u'empresa', related_name='status_company')
+        'Company', verbose_name='empresa', related_name='status_company')
     detail = models.CharField('detalhe', max_length=100, null=True, blank=True)
     next_contact = models.CharField(
         u'próximo contato', max_length=50, null=True, blank=True)
