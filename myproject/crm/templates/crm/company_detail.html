@@ -33,7 +33,7 @@
   </table>
 
   <!-- edit -->
-  <a href="{% url 'core:company_edit' company.pk %}">
+  <a href="{ url 'crm:company_edit' company.pk %}">
       <button id="edit_company" type="button" class="btn btn-success">
           <span class="fa fa-pencil"></span> Editar
       </button>
@@ -52,7 +52,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
       </div>
-        <form action="{ url 'core:company_delete' company.pk %}" method="POST">
+        <form action="{% url 'crm:company_delete' company.pk %}" method="POST">
       <div class="modal-body">
           {% csrf_token %}
           Você quer deletar "{{ object }}"?
