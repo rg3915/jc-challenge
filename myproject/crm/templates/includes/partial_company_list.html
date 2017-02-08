@@ -1,0 +1,7 @@
+{% for company in company_list %}
+  <tr>
+    <td><a href="{{ company.get_absolute_url }}">{{ company.name }}</a></td>
+    <td>{{ company.user }}</td>
+    <td>{{ company.created|date:"d/m/Y" }}</td>
+  </tr>
+{% endfor %}
