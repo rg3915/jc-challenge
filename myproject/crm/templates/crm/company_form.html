@@ -10,9 +10,7 @@
 
   <div class="modal-body">
     {% csrf_token %}
-
-    {{ form|bootstrap_horizontal }}
-
+    {{ form|bootstrap }}
   </div><!-- body -->
 
   <div class="modal-footer">
