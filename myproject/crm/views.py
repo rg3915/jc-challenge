@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .mixins import CounterMixin
 from .models import Company
 from .forms import CompanyForm
@@ -24,6 +24,9 @@ def company_create_form(request, form, template_name):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
+            companies = Company.objects.all()
+            data['html_company_list'] = render_to_string(
+                'includes/partial_company_list.html', {'company_list': companies})
             data['is_form_valid'] = True
         else:
             data['is_form_valid'] = False
@@ -41,3 +44,6 @@ def company_create(request):
     else:
         form = CompanyForm()
     return company_create_form(request, form, 'crm/company_form.html')
+
+
+company_detail = DetailView.as_view(model=Company)
