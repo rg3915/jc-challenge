@@ -1,68 +1,76 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}Empresas{% endblock title %}
 
 {% block content %}
 
-<form class="navbar-form navbar-right" action="." method="get">
-  <!-- add -->
-  <a href="{% url 'crm:company_add' %}">
+<form class="navbar-form navbar-right" action="" method="get">
+
+    <!-- add -->
+    <!--<a href="{% url 'crm:company_add' %}">-->
+    <!--</a>-->
+
     <button type="button" class="btn btn-primary js-create-company" data-url="{% url 'crm:company_add' %}">
-      <span class="glyphicon glyphicon-plus"></span> Adicionar
+        <span class="glyphicon glyphicon-plus"></span> Adicionar
     </button>
-  </a>
-  <!-- search form -->
-  <div class="form-group">
-    <input id="search_box" name="search_box" type="text" placeholder="Search..." class="form-control">
-    <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-search"></span></button>
-  </div>
+
+
+    <!-- search form -->
+    <div class="form-group">
+        <input id="search_box" name="search_box" type="text" placeholder="Search..." class="form-control">
+        <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-search"></span></button>
+    </div>
 </form>
 
 <h2>Lista de Empresas</h2>
 
 {% if object_list %}
-  <table class="table table-striped" id="company-table">
+<table class="table table-striped" id="company-table">
     <thead>
-      <tr>
+    <tr>
         <th>Empresa</th>
         <th>Usuário</th>
         <th>Criado em</th>
-      </tr>
+    </tr>
     </thead>
     <tbody>
     {% for company in object_list %}
-        <td><a href="{ company.get_absolute_url }}">{{ company.name }}</a></td>
-        <td>{{ company.user }}</td>
-        <td>{{ company.created|date:"d/m/Y" }}</td>
-      </tr>
+    <td><a href="{ company.get_absolute_url }}">{{ company.name }}</a></td>
+    <td>{{ company.user }}</td>
+    <td>{{ company.created|date:"d/m/Y" }}</td>
+    </tr>
     {% endfor %}
     </tbody>
-  </table>
+</table>
 {% else %}
-  <div class="alert alert-warning text-center">
+<div class="alert alert-warning text-center">
     <p>Sem itens na lista.</p>
     <!-- add -->
-    <a href="{% url 'crm:company_add' %}">
-      <button type="button" class="btn btn-primary">
-        <span class="glyphicon glyphicon-plus"></span> Adicionar
-      </button>
-    </a>
-  </div>
+    <!--<a href="{% url 'crm:company_add' %}">-->
+    <!--</a>-->
+        <button type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-plus"></span> Adicionar
+        </button>
+</div>
 {% endif %}
 
 <div>
-  {% if count > 0 %}
+    {% if count > 0 %}
     <hr>
     <h3>{{ object_list|length }} contact{{ object_list|length|pluralize }}</h3>
     <h4><b>Total:</b> {{ page_obj.paginator.count }} contact{{ page_obj.paginator.count|pluralize }}</h4>
-  {% endif %}
+    {% endif %}
 </div>
 
 <!-- modal -->
 <div id="modal-company" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content"></div>
-  </div>
+    <div class="modal-dialog">
+        <div class="modal-content"></div>
+    </div>
 </div>
 
 {% endblock content %}
+
+{% block java_script %}
+<script src="{% static 'js/apps.js' %}"></script>
+{% endblock %}

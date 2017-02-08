@@ -1,4 +1,5 @@
 $(function() {
+
   var loadForm = function() {
     var btn = $(this);
     $.ajax({
