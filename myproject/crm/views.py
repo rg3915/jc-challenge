@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.core.urlresolvers import reverse_lazy as r
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
-from django.views.generic import ListView, DetailView, DeleteView
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from .mixins import CounterMixin
 from .models import Company
 from .forms import CompanyForm
@@ -48,18 +47,18 @@ def company_create(request):
     return company_create_form(request, form, 'crm/company_form.html')
 
 
-def company_update(request, pk):
-    company = get_object_or_404(Company, pk=pk)
-
-    if request.method == 'POST':
-        form = CompanyForm(request.POST, instance=company)
-    else:
-        form = CompanyForm(instance=company)
-
-    return company_create_form(request, form, 'crm/company_form.html')
+class CompanyUpdate(UpdateView):
+    model = Company
+    form_class = CompanyForm
+    slug_field = 'pk_uuid'
+    slug_url_kwarg = 'uuid'
 
 
-company_detail = DetailView.as_view(model=Company)
+class CompanyDetail(DetailView):
+    model = Company
+    slug_field = 'pk_uuid'
+    slug_url_kwarg = 'uuid'
+
 
 company_delete = DeleteView.as_view(
     model=Company, success_url=r('crm:company_list'))

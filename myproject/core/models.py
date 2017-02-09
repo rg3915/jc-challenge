@@ -4,14 +4,10 @@ from django.db import models
 from localflavor.br.br_states import STATE_CHOICES
 
 
-def _createHash():
-    # Gera um uuid de 32 caracteres
-    return str(uuid.uuid4().hex)
-
-
 class UUIDModel(models.Model):
-    id = models.UUIDField(primary_key=True, unique=True,
-                          editable=False, default=_createHash)
+    # Gera um uuid de 32 caracteres
+    pk_uuid = models.UUIDField(
+        unique=True, editable=False, db_index=True, default=uuid.uuid4)
 
     class Meta:
         abstract = True

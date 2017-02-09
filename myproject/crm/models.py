@@ -19,7 +19,7 @@ class Company(UUIDModel, TimeStampedModel):
         return self.name
 
     def get_absolute_url(self):
-        return r('crm:company_detail', pk=str(self.pk))
+        return r('crm:company_detail', uuid=self.pk_uuid)
 
 
 class Person(UUIDModel, TimeStampedModel):
