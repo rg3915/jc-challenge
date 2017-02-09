@@ -41,7 +41,7 @@ $(function() {
   $('#modal-company').on('submit', '.js-company-create-form', saveForm);
 
   //  update company
-  $('#company-table').on('click', '.js-company-update', loadForm);
+  $('.js-company-update').click(loadForm);
   $('#modal-company').on('submit', '.js-company-update-form', saveForm);
 
   //  delete company

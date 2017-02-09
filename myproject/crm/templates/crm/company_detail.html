@@ -33,14 +33,13 @@
   </table>
 
   <!-- edit -->
-  <a href="{% url 'crm:company_edit' company.pk_uuid %}">
-      <button id="edit_company" type="button" class="btn btn-success">
-          <span class="fa fa-pencil"></span> Editar
-      </button>
-  </a>
+  <button id="edit_company" type="button" class="btn btn-success js-company-update" data-url="{% url 'crm:company_edit' company.pk_uuid %}">
+    <span class="fa fa-pencil"></span> Editar
+  </button>
+
   <!-- delete with modal -->
   <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
-      <span class="fa fa-times"></span> Deletar
+    <span class="fa fa-times"></span> Deletar
   </button>
 </div>
 
@@ -66,4 +65,16 @@
   </div>
 </div>
 
+<!-- modal -->
+<div id="modal-company" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+
 {% endblock content %}
+
+{% block java_script %}
+<script src="{% static 'js/apps.js' %}"></script>
+{% endblock %}
