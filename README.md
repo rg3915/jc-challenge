@@ -74,8 +74,15 @@ source .venv/bin/activate
 pip install -r requirements.txt
 python contrib/secret_gen.py
 python manage.py migrate
-python manage.py test 
+make createuser
+python manage.py test
 python manage.py runserver
+```
+
+### Script
+
+```
+source setup.sh
 ```
 
 [0]: http://pip.readthedocs.org/en/latest/
