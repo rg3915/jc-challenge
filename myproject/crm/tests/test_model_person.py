@@ -18,10 +18,10 @@ class PersonTest(TestCase):
         self.assertTrue(Person.objects.exists())
 
     def test_len_uuid(self):
-        self.assertEqual(len(self.obj.id), 32)
+        self.assertEqual(len(self.obj.pk_uuid), 32)
 
     def test_uuid_is_str(self):
-        self.assertIs(type(self.obj.id), str)
+        self.assertIs(type(self.obj.pk_uuid), str)
 
     def test_created(self):
         ''' Person must have an auto created attr. '''
