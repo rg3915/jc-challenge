@@ -6,8 +6,8 @@ from localflavor.br.br_states import STATE_CHOICES
 
 class UUIDModel(models.Model):
     # Gera um uuid de 32 caracteres
-    pk_uuid = models.UUIDField(
-        unique=True, editable=False, db_index=True, default=uuid.uuid4)
+
+    pk_uuid = models.UUIDField(editable=False, unique=True, null=True, db_index=True, default=uuid.uuid4)
 
     class Meta:
         abstract = True

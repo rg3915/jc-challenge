@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.core.urlresolvers import reverse_lazy as r
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from .mixins import CounterMixin
@@ -47,18 +48,57 @@ def company_create(request):
     return company_create_form(request, form, 'crm/company_form.html')
 
 
-class CompanyUpdate(UpdateView):
-    model = Company
-    form_class = CompanyForm
-    slug_field = 'pk_uuid'
-    slug_url_kwarg = 'uuid'
+def company_update(request, uuid):
+    company = get_object_or_404(Company, pk_uuid=uuid)
+    if request.method == 'POST':
+        form = CompanyForm(request.POST, instance=company)
+    else:
+        form = CompanyForm(instance=company)
+    return company_create_form(request, form, 'crm/company_update.html')
 
 
-class CompanyDetail(DetailView):
-    model = Company
-    slug_field = 'pk_uuid'
-    slug_url_kwarg = 'uuid'
+def company_delete(request, uuid):
+    data = {}
+    company = get_object_or_404(Company, pk_uuid=uuid)
+    if request.method == 'POST':
+        data['is_form_valid'] = True
+        company.delete()
+        companies = Company.objects.all()
+        data['html_company_list'] = render_to_string(
+            'includes/partial_company_list.html', {'company_list': companies})
+    else:
+        form = CompanyForm(instance=company)
+        context = {
+            'empresa' : company,
+            'form': form}
+        data['html_form'] = render_to_string(
+            'crm/company_delete.html', context, request=request)
+    return JsonResponse(data)
 
 
-company_delete = DeleteView.as_view(
-    model=Company, success_url=r('crm:company_list'))
+# não consegui fazer funcionar da deu problema com a  uuid get_object_or_404(Company, pk_uuid=self.pk_url_kwarg)
+# eu não manjo de cbv preciso estudar mais isso...
+
+# class CompanyUpdate(UpdateView):
+#     model = Company
+#     form_class = CompanyForm
+#     slug_field = 'pk_uuid'
+#     slug_url_kwarg = 'uuid'
+#
+#     def get(self, request, *args, **kwargs):
+#         data = {}
+#         company = get_object_or_404(Company, pk_uuid=self.pk_url_kwarg)
+#         context = {'form': CompanyForm(instance=company)}
+#         data['html_form'] = render_to_string(
+#             'crm/company_form.html', context, request=request)
+#         return JsonResponse(data)
+
+
+# class CompanyDetail(DetailView):
+#     model = Company
+#     slug_field = 'pk_uuid'
+#     slug_url_kwarg = 'uuid'
+
+
+# company_delete = DeleteView.as_view(
+#     model=Company, success_url=r('crm:company_list'))

@@ -3,5 +3,16 @@
     <td><a href="{{ company.get_absolute_url }}">{{ company.name }}</a></td>
     <td>{{ company.user }}</td>
     <td>{{ company.created|date:"d/m/Y" }}</td>
+    <td>
+      <button class="btn btn-small btn-warning js-company-update"
+              data-url="{% url 'crm:company_update' company.pk_uuid %}">
+        <span class="glyphicon glyphicon-pencil"></span>
+      </button>
+    </td> <td>
+      <button class="btn btn-small btn-danger js-company-delete"
+              data-url="{% url 'crm:company_delete' company.pk_uuid %}">
+        <span class="glyphicon glyphicon-trash"></span>
+      </button>
+    </td>
   </tr>
 {% endfor %}
