@@ -57,3 +57,11 @@ class Status(UUIDModel, TimeStampedModel):
         u'próximo contato', max_length=50, null=True, blank=True)
     status = models.CharField('tipo', max_length=2,
                               choices=STATUS, null=True, blank=True)
+
+    class Meta:
+        ordering = ['-created']
+        verbose_name = u'status'
+        verbose_name_plural = u'status'
+
+    def __unicode__(self):
+        return self.detail
