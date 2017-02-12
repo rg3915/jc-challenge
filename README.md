@@ -75,6 +75,7 @@ pip install -r requirements.txt
 python contrib/secret_gen.py
 python manage.py migrate
 make createuser
+make createcompanies
 python manage.py test
 python manage.py runserver
 ```
@@ -82,6 +83,8 @@ python manage.py runserver
 ### Script
 
 ```
+git clone https://github.com/rg3915/jc-challenge.git
+cd jc-challenge
 source setup.sh
 ```
 

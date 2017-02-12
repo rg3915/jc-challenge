@@ -1,11 +1,10 @@
-git clone https://github.com/rg3915/jc-challenge.git
-cd jc-challenge
 virtualenv -p python2.7 .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 python contrib/secret_gen.py
 python manage.py migrate
 make createuser
+make createcompanies
 python manage.py test
 echo "Done. User created:"
 echo "user: admin"
