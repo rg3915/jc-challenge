@@ -69,7 +69,7 @@ def company_delete(request, uuid):
     else:
         form = CompanyForm(instance=company)
         context = {
-            'empresa' : company,
+            'empresa': company,
             'form': form}
         data['html_form'] = render_to_string(
             'crm/company_delete.html', context, request=request)
@@ -94,10 +94,10 @@ def company_delete(request, uuid):
 #         return JsonResponse(data)
 
 
-# class CompanyDetail(DetailView):
-#     model = Company
-#     slug_field = 'pk_uuid'
-#     slug_url_kwarg = 'uuid'
+class CompanyDetail(DetailView):
+    model = Company
+    slug_field = 'pk_uuid'
+    slug_url_kwarg = 'uuid'
 
 
 # company_delete = DeleteView.as_view(

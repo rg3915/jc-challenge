@@ -17,9 +17,9 @@ class Company(UUIDModel, TimeStampedModel):
 
     def __unicode__(self):
         return self.name
-    #
-    # def get_absolute_url(self):
-    #     return r('crm:company_detail', uuid=self.pk_uuid)
+
+    def get_absolute_url(self):
+        return r('crm:company_detail', uuid=self.pk_uuid)
 
 
 class Person(UUIDModel, TimeStampedModel):
