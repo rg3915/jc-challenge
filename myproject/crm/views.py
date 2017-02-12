@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.core.urlresolvers import reverse_lazy as r
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
-from django.views.generic import ListView, DetailView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
 from .mixins import CounterMixin
 from .models import Company
 from .forms import CompanyForm
@@ -76,29 +75,7 @@ def company_delete(request, uuid):
     return JsonResponse(data)
 
 
-# não consegui fazer funcionar da deu problema com a  uuid get_object_or_404(Company, pk_uuid=self.pk_url_kwarg)
-# eu não manjo de cbv preciso estudar mais isso...
-
-# class CompanyUpdate(UpdateView):
-#     model = Company
-#     form_class = CompanyForm
-#     slug_field = 'pk_uuid'
-#     slug_url_kwarg = 'uuid'
-#
-#     def get(self, request, *args, **kwargs):
-#         data = {}
-#         company = get_object_or_404(Company, pk_uuid=self.pk_url_kwarg)
-#         context = {'form': CompanyForm(instance=company)}
-#         data['html_form'] = render_to_string(
-#             'crm/company_form.html', context, request=request)
-#         return JsonResponse(data)
-
-
 class CompanyDetail(DetailView):
     model = Company
     slug_field = 'pk_uuid'
     slug_url_kwarg = 'uuid'
-
-
-# company_delete = DeleteView.as_view(
-#     model=Company, success_url=r('crm:company_list'))
