@@ -27,9 +27,9 @@ def company_create_form(request, form, template_name):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            companies = Company.objects.all()
-            data['html_company_list'] = render_to_string(
-                'includes/partial_company_list.html', {'company_list': companies})
+            # companies = Company.objects.all()
+            # data['html_company_list'] = render_to_string(
+            # 'includes/partial_company_list.html', {'company_list': companies})
             data['is_form_valid'] = True
         else:
             data['is_form_valid'] = False

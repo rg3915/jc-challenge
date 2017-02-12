@@ -41,10 +41,11 @@ $(function() {
   $('#modal-company').on('submit', '.js-company-create-form', saveForm);
 
   //  update company
-  $('#company-table').on('click', '.js-company-update', loadForm);
+  $('#edit-company').click(loadForm);
   $('#modal-company').on('submit', '.js-company-update-form', saveForm);
+  $('#my-update').click(function(){location.reload();});
 
   //  delete company
-  $('#company-table').on('click', '.js-company-delete', loadForm);
-  $('#modal-company').on('submit', '.js-company-delete-form', saveForm)
+  // $('#company-table').on('click', '.js-company-delete', loadForm);
+  // $('#modal-company').on('submit', '.js-company-delete-form', saveForm)
 });
