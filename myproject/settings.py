@@ -35,6 +35,7 @@ INSTALLED_APPS = (
     # thirty apps
     'django_extensions',
     'bootstrapform',
+    'debug_toolbar',
     # my apps
     'myproject.myauth',
     'myproject.crm',
@@ -49,6 +50,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
