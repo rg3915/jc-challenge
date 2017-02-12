@@ -43,7 +43,6 @@ $(function() {
   //  update company
   $('#edit-company').click(loadForm);
   $('#modal-company').on('submit', '.js-company-update-form', saveForm);
-  $('#my-update').click(function(){location.reload();});
 
   //  delete company
   // $('#company-table').on('click', '.js-company-delete', loadForm);

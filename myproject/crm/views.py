@@ -49,13 +49,32 @@ def company_create(request):
     return company_create_form(request, form, 'crm/company_form.html')
 
 
+def company_update_form(request, form, template_name, uuid):
+    data = {}
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            company = Company.objects.get(pk_uuid=uuid)
+            data['html_company_list'] = render_to_string(
+                'company_detail.html', {'object': company})
+            data['is_form_valid'] = True
+        else:
+            data['is_form_valid'] = False
+
+    context = {'form': form}
+    data['html_form'] = render_to_string(
+        template_name, context, request=request)
+
+    return JsonResponse(data)
+
+
 def company_update(request, uuid):
     company = get_object_or_404(Company, pk_uuid=uuid)
     if request.method == 'POST':
         form = CompanyForm(request.POST, instance=company)
     else:
         form = CompanyForm(instance=company)
-    return company_create_form(request, form, 'crm/company_update.html')
+    return company_update_form(request, form, 'crm/company_update.html', uuid)
 
 
 def company_delete(request, uuid):
