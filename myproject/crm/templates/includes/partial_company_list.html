@@ -8,11 +8,6 @@
               data-url="{% url 'crm:company_update' company.pk_uuid %}">
         <span class="glyphicon glyphicon-pencil"></span>
       </button>
-    </td> <td>
-      <button class="btn btn-small btn-danger js-company-delete"
-              data-url="{% url 'crm:company_delete' company.pk_uuid %}">
-        <span class="glyphicon glyphicon-trash"></span>
-      </button>
     </td>
   </tr>
 {% endfor %}

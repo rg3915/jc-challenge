@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
+from django.http import HttpResponseRedirect
 from django.http import JsonResponse
+from django.shortcuts import resolve_url as r
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.views.generic import ListView, DetailView
@@ -72,7 +74,7 @@ def company_delete(request, uuid):
             'form': form}
         data['html_form'] = render_to_string(
             'crm/company_delete.html', context, request=request)
-    return JsonResponse(data)
+    return HttpResponseRedirect(r('crm:company_list'))
 
 
 class CompanyDetail(DetailView):
