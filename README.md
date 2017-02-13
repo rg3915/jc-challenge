@@ -76,6 +76,7 @@ python contrib/secret_gen.py
 python manage.py migrate
 make createuser
 make createcompanies
+make createpersons
 python manage.py test
 python manage.py runserver
 ```
