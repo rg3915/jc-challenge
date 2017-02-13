@@ -45,8 +45,29 @@ person_patterns = [
     ),
 ]
 
+status_patterns = [
+    url(r'^$', c.StatusList.as_view(), name='status_list'),
+    url(r'^add/$', c.status_create, name='status_add'),
+    url(
+        regex=re_uuid + r'$',
+        view=c.StatusDetail.as_view(),
+        name='status_detail'
+    ),
+    url(
+        regex=re_uuid + r'edit/$',
+        view=c.StatusUpdate.as_view(),
+        name='status_update'
+    ),
+    url(
+        regex=re_uuid + r'delete/$',
+        view=c.StatusDelete.as_view(),
+        name='status_delete'
+    ),
+]
+
 
 urlpatterns = [
     url(r'^company/', include(company_patterns)),
     url(r'^person/', include(person_patterns)),
+    url(r'^status/', include(status_patterns)),
 ]

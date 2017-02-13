@@ -109,3 +109,55 @@ class PersonDelete(PersonDeleteMixin, DeleteView):
     model = Person
     slug_field = 'pk_uuid'
     slug_url_kwarg = 'uuid'
+
+
+def status_create_form(request, form, template_name):
+    data = {}
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            status = Status.objects.all()
+            data['html_status_list'] = render_to_string(
+                'includes/partial_status_list.html',
+                {'status_list': status},
+                request=request)
+            data['is_form_valid'] = True
+        else:
+            data['is_form_valid'] = False
+
+    context = {'form': form}
+    data['html_form'] = render_to_string(
+        template_name, context, request=request)
+    return JsonResponse(data)
+
+
+def status_create(request):
+    if request.method == 'POST':
+        form = StatusForm(request.POST)
+    else:
+        form = StatusForm()
+    return status_create_form(request, form, 'crm/status_form.html')
+
+
+class StatusList(CounterMixin, SearchStatusMixin, ListView):
+    model = Status
+    paginate_by = 15
+
+
+class StatusDetail(DetailView):
+    model = Status
+    slug_field = 'pk_uuid'
+    slug_url_kwarg = 'uuid'
+
+
+class StatusUpdate(StatusUpdateMixin, UpdateView):
+    model = Status
+    form_class = StatusForm
+    slug_field = 'pk_uuid'
+    slug_url_kwarg = 'uuid'
+
+
+class StatusDelete(StatusDeleteMixin, DeleteView):
+    model = Status
+    slug_field = 'pk_uuid'
+    slug_url_kwarg = 'uuid'

@@ -6,6 +6,7 @@ python manage.py migrate
 make createuser
 make createcompanies
 make createpersons
+make createstatus
 python manage.py test
 echo "Done. User created:"
 echo "user: admin"

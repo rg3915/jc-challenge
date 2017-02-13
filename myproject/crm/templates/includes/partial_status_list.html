@@ -1,0 +1,10 @@
+{% for status in status_list %}
+  <tr>
+    <td><a href="{{ status.get_absolute_url }}">{{ status.detail }}</a></td>
+    <td>{{ status.next_contact }}</td>
+    <td>{{ status.get_status_display }}</td>
+    <td>{{ status.user }}</td>
+    <td>{{ status.company }}</td>
+    <td>{{ status.created|date:"d/m/Y" }}</td>
+  </tr>
+{% endfor %}

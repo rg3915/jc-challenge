@@ -7,10 +7,10 @@ $(function() {
       type: 'GET',
       dataType: 'json',
       beforeSend: function() {
-        $('#modal-person').modal('show');
+        $('#modal-status').modal('show');
       },
       success: function(data) {
-        $('#modal-person .modal-content').html(data.html_form);
+        $('#modal-status .modal-content').html(data.html_form);
       }
     });
   };
@@ -25,11 +25,11 @@ $(function() {
       dataType: 'json',
       success: function(data) {
         if (data.is_form_valid) {
-          $('#modal-person').modal('hide');
-          $('#person-table tbody ').html(data.html_person_list);
-          $('#detail-person').html(data.html_person_detail);
+          $('#modal-status').modal('hide');
+          $('#status-table tbody ').html(data.html_status_list);
+          $('#detail-status').html(data.html_status_detail);
         } else {
-          $('#modal-person .modal-content').html(data.html_form);
+          $('#modal-status .modal-content').html(data.html_form);
         }
 
       }
@@ -38,10 +38,10 @@ $(function() {
   };
 
   //  create company
-  $('.js-create-person').click(loadForm);
-  $('#modal-person').on('submit', '.js-person-create-form', saveForm);
+  $('.js-create-status').click(loadForm);
+  $('#modal-status').on('submit', '.js-status-create-form', saveForm);
 
   //  update company
-  $('#edit-person').click(loadForm);
-  $('#modal-person').on('submit', '.js-person-update-form', saveForm);
+  $('#edit-status').click(loadForm);
+  $('#modal-status').on('submit', '.js-status-update-form', saveForm);
 });

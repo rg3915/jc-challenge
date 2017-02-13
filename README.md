@@ -77,6 +77,7 @@ python manage.py migrate
 make createuser
 make createcompanies
 make createpersons
+make createstatus
 python manage.py test
 python manage.py runserver
 ```

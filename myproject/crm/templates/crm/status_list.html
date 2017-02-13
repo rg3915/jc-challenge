@@ -1,0 +1,63 @@
+  {% extends "base.html" %}
+{% load static %}
+{% block title %}Status{% endblock title %}
+
+{% block content %}
+
+<form class="navbar-form navbar-right" action="" method="get">
+
+  <button type="button" class="btn btn-primary js-create-status" data-url="{% url 'crm:status_add' %}">
+    <span class="glyphicon glyphicon-plus"></span> Adicionar
+  </button>
+
+  <!-- search form -->
+  <div class="form-group">
+    <input id="search_box" name="search_box" type="text" placeholder="Search..." class="form-control">
+    <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-search"></span></button>
+  </div>
+</form>
+
+<h2>Lista de Status</h2>
+
+{% if status_list %}
+  <table class="table table-striped" id="status-table">
+    <thead>
+      <tr>
+        <th>Detalhes</th>
+        <th>Próximo contato</th>
+        <th>Status</th>
+        <th>Criado por</th>
+        <th>Empresa</th>
+        <th>Criado em</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% include "includes/partial_status_list.html" %}
+    </tbody>
+  </table>
+{% else %}
+  <div class="alert alert-warning text-center">
+    <p>Sem itens na lista.</p>
+  </div>
+{% endif %}
+
+<div>
+  {% if count > 0 %}
+    <hr>
+    <h3>{{ status_list|length }} pessoa{{ status_list|length|pluralize }}</h3>
+    <h4><b>Total:</b> {{ page_obj.paginator.count }} pessoa{{ page_obj.paginator.count|pluralize }}</h4>
+  {% endif %}
+</div>
+
+<!-- modal -->
+<div id="modal-status" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block java_script %}
+<script src="{% static 'js/app_status.js' %}"></script>
+{% endblock %}

@@ -6,3 +6,6 @@ createcompanies:
 
 createpersons:
 	python manage.py shell < shell/create_persons.py
+
+createstatus:
+	python manage.py shell < shell/create_status.py

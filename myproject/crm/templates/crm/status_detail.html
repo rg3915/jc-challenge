@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Status Detail{% endblock title %}
+
+{% block content %}
+
+<div class="row">
+  {% include 'crm/status_detail_form.html' %}
+</div>
+
+<div class="row ">
+  <!-- edit -->
+  <button id="edit-status" type="button" class="btn btn-warning js-status-update" data-url="{% url 'crm:status_update' status.pk_uuid %}">
+    <span class="fa fa-pencil"></span> Editar
+  </button>
+
+  <!-- delete with modal -->
+  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+    <span class="fa fa-times"></span> Deletar
+  </button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
+      </div>
+        <form action="{% url 'crm:status_delete' status.pk_uuid %}" method="POST">
+      <div class="modal-body">
+          {% csrf_token %}
+          Você quer deletar "{{ object }}"?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <input type="submit" class="btn btn-danger" value="Deletar" />
+      </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+<!-- modal -->
+<div id="modal-status" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+
+{% endblock content %}
+
+{% block java_script %}
+<script src="{% static 'js/app_status.js' %}"></script>
+{% endblock %}

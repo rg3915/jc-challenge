@@ -1,0 +1,40 @@
+<div id="detail-status">
+  <ul class="breadcrumb">
+    <li><a href="{% url 'core:home' %}">Home</a> <span class="divider"></span></li>
+    <li><a href="{% url 'crm:status_list' %}">Status</a> <span class="divider"></span></li>
+    <li class="active">{{ object.pk_uuid }}</li>
+  </ul>
+
+  <div class="col-lg-8">
+    <div class="col-md-offset-3 column">
+      <h1>{{ object.detail }}</h1>
+    </div>
+
+    </br>
+
+    <table class="table table-user-information">
+      <tbody>
+        <tr>
+          <th class="col-md-3 text-right">Status</th>
+          <td>{{ object.get_status_display }}</td>
+        </tr>
+        <tr>
+          <th class="col-md-3 text-right">Próximo contato</th>
+          <td>{{ object.next_contact }}</td>
+        </tr>
+        <tr>
+          <th class="col-md-3 text-right">Empresa</th>
+          <td>{{ object.company }}</td>
+        </tr>
+        <tr>
+          <th class="col-md-3 text-right">Criado por</th>
+          <td>{{ object.user }}</td>
+        </tr>
+        <tr>
+          <th class="col-md-3 text-right">Criado em</th>
+          <td>{{ object.created|date:"d/m/Y" }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

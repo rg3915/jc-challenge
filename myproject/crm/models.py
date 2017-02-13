@@ -68,3 +68,6 @@ class Status(UUIDModel, TimeStampedModel):
 
     def __unicode__(self):
         return self.detail
+
+    def get_absolute_url(self):
+        return r('crm:status_detail', uuid=self.pk_uuid)
