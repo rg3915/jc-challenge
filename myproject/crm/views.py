@@ -89,7 +89,7 @@ def person_create(request):
 
 class PersonList(CounterMixin, SearchPersonMixin, ListView):
     model = Person
-    paginate_by = 10
+    paginate_by = 15
 
 
 class PersonDetail(DetailView):

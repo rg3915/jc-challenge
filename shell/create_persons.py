@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from myproject.crm.models import Company, Person
 
 person_list = []
-REPEAT = 20
+REPEAT = 9
 
 USER_DICT = {
     'username': 'jobconvo',

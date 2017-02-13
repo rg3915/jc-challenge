@@ -26,7 +26,7 @@ $(function() {
       success: function(data) {
         if (data.is_form_valid) {
           $('#modal-person').modal('hide');
-          // $('#person-table tbody ').html(data.html_person_list);
+          $('#person-table tbody ').html(data.html_person_list);
           $('#detail-person').html(data.html_person_detail);
         } else {
           $('#modal-person .modal-content').html(data.html_form);
