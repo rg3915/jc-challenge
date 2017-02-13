@@ -39,6 +39,9 @@ class Person(UUIDModel, TimeStampedModel):
     def __unicode__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return r('crm:person_detail', uuid=self.pk_uuid)
+
 
 STATUS = (
     ('fu', 'fazer follow up'),

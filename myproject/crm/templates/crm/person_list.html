@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Pessoas{% endblock title %}
+
+{% block content %}
+
+<form class="navbar-form navbar-right" action="" method="get">
+
+  <button type="button" class="btn btn-primary js-create-person" data-url="{% url 'crm:person_add' %}">
+    <span class="glyphicon glyphicon-plus"></span> Adicionar
+  </button>
+
+  <!-- search form -->
+  <div class="form-group">
+    <input id="search_box" name="search_box" type="text" placeholder="Search..." class="form-control">
+    <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-search"></span></button>
+  </div>
+</form>
+
+<h2>Lista de Pessoas</h2>
+
+{% if person_list %}
+  <table class="table table-striped" id="person-table">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>E-mail</th>
+        <th>Telefone</th>
+        <th>Criado por</th>
+        <th>Empresa</th>
+        <th>Criado em</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% include "includes/partial_person_list.html" %}
+    </tbody>
+  </table>
+{% else %}
+  <div class="alert alert-warning text-center">
+    <p>Sem itens na lista.</p>
+  </div>
+{% endif %}
+
+<div>
+  {% if count > 0 %}
+    <hr>
+    <h3>{{ person_list|length }} pessoa{{ person_list|length|pluralize }}</h3>
+    <h4><b>Total:</b> {{ page_obj.paginator.count }} pessoa{{ page_obj.paginator.count|pluralize }}</h4>
+  {% endif %}
+</div>
+
+<!-- modal -->
+<div id="modal-person" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block java_script %}
+<script src="{% static 'js/app_person.js' %}"></script>
+{% endblock %}

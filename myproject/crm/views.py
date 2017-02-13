@@ -8,8 +8,8 @@ from django.template.loader import render_to_string
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 
 from .mixins import CounterMixin
-from .models import Company
-from .forms import CompanyForm
+from .models import Company, Person
+from .forms import CompanyForm, PersonForm
 
 
 class CompanyList(CounterMixin, ListView):

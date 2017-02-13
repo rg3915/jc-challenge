@@ -25,7 +25,23 @@ company_patterns = [
     ),
 ]
 
+person_patterns = [
+    url(r'^$', c.PersonList.as_view(), name='person_list'),
+    url(r'^add/$', c.person_create, name='person_add'),
+    url(
+        regex=re_uuid + r'$',
+        view=c.PersonDetail.as_view(),
+        name='person_detail'
+    ),
+    url(
+        regex=re_uuid + r'edit/$',
+        view=c.person_update,
+        name='person_update'
+    ),
+]
+
 
 urlpatterns = [
     url(r'^company/', include(company_patterns)),
+    url(r'^person/', include(person_patterns)),
 ]
