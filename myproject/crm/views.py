@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
-from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from django.shortcuts import resolve_url as r
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
-
 from .mixins import CounterMixin
 from .models import Company, Person
 from .forms import CompanyForm, PersonForm
@@ -30,7 +28,6 @@ class CompanyDetail(DetailView):
     slug_url_kwarg = 'uuid'
 
 
-
 class CompanyUpdate(UpdateView):
     model = Company
     form_class = CompanyForm
@@ -40,8 +37,10 @@ class CompanyUpdate(UpdateView):
     def get(self, request, *args, **kwargs):
         data = {}
         company = get_object_or_404(Company, pk_uuid=kwargs['uuid'])
-        data['html_form'] = render_to_string('crm/company_update.html',
-                                             {'form': CompanyForm(instance=company)}, request=request)
+        data['html_form'] = render_to_string(
+            'crm/company_update.html',
+            {'form': CompanyForm(instance=company)},
+            request=request)
         return JsonResponse(data)
 
     def post(self, request, *args, **kwargs):
@@ -52,11 +51,14 @@ class CompanyUpdate(UpdateView):
             company.save()
             company = Company.objects.get(pk_uuid=kwargs['uuid'])
             data['is_form_valid'] = True
-            data['html_company_detail'] = render_to_string('crm/company_detail_form.html',
-                                                           {'object': company}, request=request)
+            data['html_company_detail'] = render_to_string(
+                'crm/company_detail_form.html',
+                {'object': company},
+                request=request)
         else:
             data['is_form_valid'] = False
-            data['html_form'] = render_to_string('crm/company_update.html', {'form': form}, request=request)
+            data['html_form'] = render_to_string(
+                'crm/company_update.html', {'form': form}, request=request)
 
         return JsonResponse(data)
 
@@ -73,17 +75,14 @@ class CompanyDelete(DeleteView):
             'form': CompanyForm(instance=company),
             'company': company,
         }
-        data['html_form'] = render_to_string('crm/company_delete.html', context=context, request=request)
+        data['html_form'] = render_to_string(
+            'crm/company_delete.html', context=context, request=request)
         return HttpResponseRedirect(r('crm:company_list'))
 
     def post(self, request, *args, **kwargs):
         company = get_object_or_404(Company, pk_uuid=kwargs['uuid'])
         company.delete()
         return HttpResponseRedirect(r('crm:company_list'))
-
-
-
-
 
 
 def company_create_form(request, form, template_name):
@@ -93,7 +92,9 @@ def company_create_form(request, form, template_name):
             form.save()
             companies = Company.objects.all()
             data['html_company_list'] = render_to_string(
-            'includes/partial_company_list.html', {'company_list': companies}, request=request)
+                'includes/partial_company_list.html',
+                {'company_list': companies},
+                request=request)
             data['is_form_valid'] = True
         else:
             data['is_form_valid'] = False
@@ -111,51 +112,3 @@ def company_create(request):
     else:
         form = CompanyForm()
     return company_create_form(request, form, 'crm/company_form.html')
-
-
-def company_update_form(request, form, template_name, uuid):
-    data = {}
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            company = Company.objects.get(pk_uuid=uuid)
-            data['html_company_detail'] = render_to_string(
-                'crm/company_detail_form.html', {'object': company})
-            data['is_form_valid'] = True
-        else:
-            data['is_form_valid'] = False
-    else:
-        context = {'form': form}
-        data['html_form'] = render_to_string(
-            template_name, context, request=request)
-
-    return JsonResponse(data)
-
-
-def company_update(request, uuid):
-    company = get_object_or_404(Company, pk_uuid=uuid)
-    if request.method == 'POST':
-        form = CompanyForm(request.POST, instance=company)
-    else:
-        form = CompanyForm(instance=company)
-    return company_update_form(request, form, 'crm/company_update.html', uuid)
-
-
-def company_delete(request, uuid):
-    data = {}
-    company = get_object_or_404(Company, pk_uuid=uuid)
-    if request.method == 'POST':
-        data['is_form_valid'] = True
-        company.delete()
-        companies = Company.objects.all()
-        data['html_company_list'] = render_to_string(
-            'includes/partial_company_list.html', {'company_list': companies})
-    else:
-        form = CompanyForm(instance=company)
-        context = {
-            'empresa': company,
-            'form': form}
-        data['html_form'] = render_to_string(
-            'crm/company_delete.html', context, request=request)
-    return HttpResponseRedirect(r('crm:company_list'))
-
