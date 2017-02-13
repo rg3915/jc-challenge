@@ -15,12 +15,12 @@ company_patterns = [
     ),
     url(
         regex=re_uuid + r'edit/$',
-        view=c.company_update,
+        view=c.CompanyUpdate.as_view(),
         name='company_update'
     ),
     url(
         regex=re_uuid + r'delete/$',
-        view=c.company_delete,
+        view=c.CompanyDelete.as_view(),
         name='company_delete'
     ),
 ]
