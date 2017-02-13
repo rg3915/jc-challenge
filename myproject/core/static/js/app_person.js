@@ -25,8 +25,9 @@ $(function() {
       dataType: 'json',
       success: function(data) {
         if (data.is_form_valid) {
-          $('#person-table tbody').html(data.html_person_list);
           $('#modal-person').modal('hide');
+          // $('#person-table tbody ').html(data.html_person_list);
+          $('#detail-person').html(data.html_person_detail);
         } else {
           $('#modal-person .modal-content').html(data.html_form);
         }
@@ -36,12 +37,15 @@ $(function() {
     return false;
   };
 
-  //  create person
+  //  create company
   $('.js-create-person').click(loadForm);
   $('#modal-person').on('submit', '.js-person-create-form', saveForm);
 
-  //  update person
+  //  update company
   $('#edit-person').click(loadForm);
   $('#modal-person').on('submit', '.js-person-update-form', saveForm);
 
+  //  delete company
+  // $('#person-table').on('click', '.js-person-delete', loadForm);
+  // $('#modal-person').on('submit', '.js-person-delete-form', saveForm)
 });

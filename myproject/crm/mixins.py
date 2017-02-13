@@ -4,8 +4,8 @@ from django.http import JsonResponse
 from django.shortcuts import resolve_url as r
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
-from .models import Company
-from .forms import CompanyForm
+from .models import Company, Person
+from .forms import CompanyForm, PersonForm
 
 
 class CounterMixin(object):
@@ -16,7 +16,7 @@ class CounterMixin(object):
         return context
 
 
-class SearchMixin(object):
+class SearchCompanyMixin(object):
 
     def get_queryset(self):
         companies = Company.objects.all()
@@ -73,3 +73,62 @@ class CompanyDeleteMixin(object):
         company = get_object_or_404(Company, pk_uuid=kwargs['uuid'])
         company.delete()
         return HttpResponseRedirect(r('crm:company_list'))
+
+
+class SearchPersonMixin(object):
+
+    def get_queryset(self):
+        persons = Person.objects.all()
+        q = self.request.GET.get('search_box')
+        if q is not None:
+            persons = persons.filter(name__icontains=q)
+        return persons
+
+
+class PersonUpdateMixin(object):
+
+    def get(self, request, *args, **kwargs):
+        data = {}
+        person = get_object_or_404(Person, pk_uuid=kwargs['uuid'])
+        data['html_form'] = render_to_string(
+            'crm/person_update.html',
+            {'form': PersonForm(instance=person)},
+            request=request)
+        return JsonResponse(data)
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        person = get_object_or_404(Person, pk_uuid=kwargs['uuid'])
+        form = PersonForm(request.POST, instance=person)
+        if form.is_valid():
+            person.save()
+            person = Person.objects.get(pk_uuid=kwargs['uuid'])
+            data['is_form_valid'] = True
+            data['html_person_detail'] = render_to_string(
+                'crm/person_detail_form.html',
+                {'object': person},
+                request=request)
+        else:
+            data['is_form_valid'] = False
+            data['html_form'] = render_to_string(
+                'crm/person_update.html', {'form': form}, request=request)
+        return JsonResponse(data)
+
+
+class PersonDeleteMixin(object):
+
+    def get(self, request, *args, **kwargs):
+        data = {}
+        person = get_object_or_404(Person, pk_uuid=kwargs['uuid'])
+        context = {
+            'form': PersonForm(instance=person),
+            'person': person,
+        }
+        data['html_form'] = render_to_string(
+            'crm/person_delete.html', context=context, request=request)
+        return HttpResponseRedirect(r('crm:person_list'))
+
+    def post(self, request, *args, **kwargs):
+        person = get_object_or_404(Person, pk_uuid=kwargs['uuid'])
+        person.delete()
+        return HttpResponseRedirect(r('crm:person_list'))

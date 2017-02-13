@@ -6,44 +6,11 @@
 
 {% block content %}
 
-<ul class="breadcrumb">
-  <li><a href="{% url 'core:home' %}">Home</a> <span class="divider"></span></li>
-  <li><a href="{% url 'crm:person_list' %}">Pessoas</a> <span class="divider"></span></li>
-  <li class="active">{{ object.name }}</li>
-</ul>
+<div class="row">
+  {% include 'crm/person_detail_form.html' %}
+</div>
 
-<div class="col-lg-8">
-  <div class="col-md-offset-3 column">
-    <h1>{{ object.name }}</h1>
-  </div>
-
-  </br>
-
-  <table class="table table-user-information">
-    <tbody>
-      <tr>
-        <th class="col-md-3 text-right">E-mail</th>
-        <td>{{ object.email }}</td>
-      </tr>
-      <tr>
-        <th class="col-md-3 text-right">Telefone</th>
-        <td>{{ object.phone }}</td>
-      </tr>
-      <tr>
-        <th class="col-md-3 text-right">Empresa</th>
-        <td>{{ object.company }}</td>
-      </tr>
-      <tr>
-        <th class="col-md-3 text-right">Criado por</th>
-        <td>{{ object.user }}</td>
-      </tr>
-      <tr>
-        <th class="col-md-3 text-right">Criado em</th>
-        <td>{{ object.created|date:"d/m/Y" }}</td>
-      </tr>
-    </tbody>
-  </table>
-
+<div class="row ">
   <!-- edit -->
   <button id="edit-person" type="button" class="btn btn-warning js-person-update" data-url="{% url 'crm:person_update' person.pk_uuid %}">
     <span class="fa fa-pencil"></span> Editar
@@ -63,7 +30,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
       </div>
-        <form action="{ url 'crm:company_delete' company.pk_uuid %}" method="POST">
+        <form action="{% url 'crm:person_delete' person.pk_uuid %}" method="POST">
       <div class="modal-body">
           {% csrf_token %}
           Você quer deletar "{{ object }}"?
