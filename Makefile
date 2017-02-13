@@ -9,3 +9,6 @@ createpersons:
 
 createstatus:
 	python manage.py shell < shell/create_status.py
+
+createproducts:
+	python manage.py shell < shell/create_products.py

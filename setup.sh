@@ -7,6 +7,7 @@ make createuser
 make createcompanies
 make createpersons
 make createstatus
+make createproducts
 python manage.py test
 echo "Done. User created:"
 echo "user: admin"

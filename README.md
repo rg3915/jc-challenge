@@ -78,6 +78,7 @@ make createuser
 make createcompanies
 make createpersons
 make createstatus
+make createproducts
 python manage.py test
 python manage.py runserver
 ```

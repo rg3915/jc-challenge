@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form class="navbar-form navbar-right" action="." method="get">
+      <!-- search form -->
+      <input id="search_box" name="search_box" type="text" placeholder="Localizar..." class="form-control">
+      <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
+
+	<h1>Lista de Produtos</h1>
+
+{% if object_list %}
+		<div>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Produto</th>
+						<th class="text-right">Preço</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for product in object_list %}
+						<td>{{ product.product }}</td>
+						<td class="text-right">{{ product.get_price }}</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+{% else %}
+  <p class="alert alert-warning">Sem itens na lista.</p>
+{% endif %}
+
+<hr>
+<div>
+<h3>{{ object_list|length }} produto{{ object_list|length|pluralize }}</h3>
+<h4><b>Total:</b> {{ page_obj.paginator.count }} produto{{ page_obj.paginator.count|pluralize }}</h4>
+</div>
+
+
+{% endblock content %}

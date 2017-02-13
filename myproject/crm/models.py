@@ -69,7 +69,7 @@ class Status(UUIDModel, TimeStampedModel):
 
 
 class Product(models.Model):
-    product = models.CharField('Produto', max_length=100, unique=True)
+    product = models.CharField('Produto', max_length=100)
     price = models.DecimalField('Preço', max_digits=7, decimal_places=2)
 
     class Meta:

@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import resolve_url as r
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
-from .models import Company, Person, Status
+from .models import Company, Person, Status, StatusDetail, Product
 from .forms import CompanyForm, PersonForm, StatusForm
 
 
@@ -191,3 +191,24 @@ class StatusDeleteMixin(object):
         status = get_object_or_404(Status, pk_uuid=kwargs['uuid'])
         status.delete()
         return HttpResponseRedirect(r('crm:status_list'))
+
+
+class StatusDetailMixin(object):
+
+    def get_context_data(self, **kwargs):
+        sd = StatusDetail.objects.filter(status=self.object)
+        context = super(StatusDetailMixin, self).get_context_data(**kwargs)
+        # context['count'] = sd.count()
+        context['itens'] = sd
+        return context
+
+
+class SearchProductMixin(object):
+
+    def get_queryset(self):
+        products = Product.objects.all()
+        q = self.request.GET.get('search_box')
+        # buscar por produto
+        if q is not None:
+            products = products.filter(product__icontains=q)
+        return products

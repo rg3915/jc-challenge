@@ -65,9 +65,15 @@ status_patterns = [
     ),
 ]
 
+product_patterns = [
+    url(r'^$', c.ProductList.as_view(), name='product_list'),
+    url(r'^add/$', c.product_create, name='product_add'),
+]
+
 
 urlpatterns = [
     url(r'^company/', include(company_patterns)),
     url(r'^person/', include(person_patterns)),
     url(r'^status/', include(status_patterns)),
+    url(r'^product/', include(product_patterns)),
 ]
