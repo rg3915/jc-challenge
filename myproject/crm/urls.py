@@ -25,7 +25,13 @@ company_patterns = [
     ),
 ]
 
+person_patterns = [
+    url(r'^$', c.PersonList.as_view(), name='person_list'),
+    url(r'^add/$', c.person_create, name='person_add'),
+]
+
 
 urlpatterns = [
     url(r'^company/', include(company_patterns)),
+    url(r'^person/', include(person_patterns)),
 ]

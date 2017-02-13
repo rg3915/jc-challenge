@@ -1,0 +1,19 @@
+{% load bootstrap %}
+<form class="js-person-create-form" action="{% url 'crm:person_add' %}" method="POST">
+  <div class="modal-header">
+    <button class="close" aria-label="Close" data-dismiss="modal" type="button">
+      <span aria-hidden="True">&times;</span>
+    </button>
+    <h4 class="modal-title">Nova Pessoa</h4>
+  </div> <!-- header -->
+
+  <div class="modal-body">
+    {% csrf_token %}
+    {{ form|bootstrap }}
+  </div><!-- body -->
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+    <button type="submit" class="btn btn-primary" >Salvar</button>
+  </div><!-- footer -->
+</form>

@@ -6,8 +6,8 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.views.generic import ListView, DetailView
 from .mixins import CounterMixin
-from .models import Company
-from .forms import CompanyForm
+from .models import Company, Person
+from .forms import CompanyForm, PersonForm
 
 
 class CompanyList(CounterMixin, ListView):
@@ -100,3 +100,42 @@ class CompanyDetail(DetailView):
     model = Company
     slug_field = 'pk_uuid'
     slug_url_kwarg = 'uuid'
+
+
+class PersonList(CounterMixin, ListView):
+    model = Person
+    paginate_by = 10
+
+    def get_queryset(self):
+        persons = Person.objects.all()
+        q = self.request.GET.get('search_box')
+        if q is not None:
+            persons = persons.filter(name__icontains=q)
+        return persons
+
+
+def person_create_form(request, form, template_name):
+    data = {}
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            persons = Person.objects.all()
+            data['html_person_list'] = render_to_string(
+                'includes/partial_person_list.html', {'person_list': persons})
+            data['is_form_valid'] = True
+        else:
+            data['is_form_valid'] = False
+
+    context = {'form': form}
+    data['html_form'] = render_to_string(
+        template_name, context, request=request)
+
+    return JsonResponse(data)
+
+
+def person_create(request):
+    if request.method == 'POST':
+        form = PersonForm(request.POST)
+    else:
+        form = PersonForm()
+    return person_create_form(request, form, 'crm/person_form.html')
