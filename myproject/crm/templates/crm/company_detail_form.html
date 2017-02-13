@@ -1,0 +1,33 @@
+<div id="detail-company">
+
+<ul class="breadcrumb">
+
+  <li><a href="{% url 'core:home' %}">Home</a> <span class="divider"></span></li>
+  <li><a href="{% url 'crm:company_list' %}">Empresas</a> <span class="divider"></span></li>
+  <li class="active">{{ object.name }}</li>
+</ul>
+
+<div class="col-lg-8">
+  <div class="col-md-offset-3 column">
+    <h1>{{ object.name }}</h1>
+  </div>
+
+  </br>
+
+  <table class="table table-user-information">
+    <tbody>
+      <tr>
+        <th class="col-md-3 text-right">Criado por</th>
+        <td>{{ object.user }}</td>
+      </tr>
+      <tr>
+        <th class="col-md-3 text-right">Criado em</th>
+        <td>{{ object.created|date:"d/m/Y" }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>
+
+</div>

@@ -25,8 +25,9 @@ $(function() {
       dataType: 'json',
       success: function(data) {
         if (data.is_form_valid) {
-          $('#company-table tbody').html(data.html_company_list);
           $('#modal-company').modal('hide');
+          $('#company-table tbody ').html(data.html_company_list);
+          $('#detail-company ').html(data.html_company_detail);
         } else {
           $('#modal-company .modal-content').html(data.html_form);
         }

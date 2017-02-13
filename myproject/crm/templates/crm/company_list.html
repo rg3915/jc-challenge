@@ -6,51 +6,49 @@
 
 <form class="navbar-form navbar-right" action="" method="get">
 
-  <button type="button" class="btn btn-primary js-create-company" data-url="{% url 'crm:company_add' %}">
-    <span class="glyphicon glyphicon-plus"></span> Adicionar
-  </button>
+    <button type="button" class="btn btn-primary js-create-company" data-url="{% url 'crm:company_add' %}">
+        <span class="glyphicon glyphicon-plus"></span> Adicionar
+    </button>
 
-  <!-- search form -->
-  <div class="form-group">
-    <input id="search_box" name="search_box" type="text" placeholder="Search..." class="form-control">
-    <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-search"></span></button>
-  </div>
+    <!-- search form -->
+    <div class="form-group">
+        <input id="search_box" name="search_box" type="text" placeholder="Search..." class="form-control">
+        <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-search"></span></button>
+    </div>
 </form>
 
 <h2>Lista de Empresas</h2>
-
-{% if company_list %}
-  <table class="table table-striped" id="company-table">
+<!-- o if company_list estava gerando o problema com atulizar o primeiro registro, por isso mudei -->
+<table class="table table-striped" id="company-table">
     <thead>
-      <tr>
+    <tr>
         <th>Empresa</th>
         <th>Usuário</th>
         <th>Criado em</th>
-      </tr>
+    </tr>
     </thead>
     <tbody>
-      {% include "includes/partial_company_list.html" %}
+
+    {% include "includes/partial_company_list.html" %}
     </tbody>
-  </table>
-{% else %}
-  <div class="alert alert-warning text-center">
-    <p>Sem itens na lista.</p>
-  </div>
-{% endif %}
+</table>
+
+
+
 
 <div>
-  {% if count > 0 %}
+    {% if count > 0 %}
     <hr>
     <h3>{{ company_list|length }} empresa{{ company_list|length|pluralize }}</h3>
     <h4><b>Total:</b> {{ page_obj.paginator.count }} empresa{{ page_obj.paginator.count|pluralize }}</h4>
-  {% endif %}
+    {% endif %}
 </div>
 
 <!-- modal -->
 <div id="modal-company" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content"></div>
-  </div>
+    <div class="modal-dialog">
+        <div class="modal-content"></div>
+    </div>
 </div>
 
 {% endblock content %}

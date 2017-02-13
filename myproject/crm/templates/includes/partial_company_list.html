@@ -1,7 +1,14 @@
+
 {% for company in company_list %}
-  <tr>
+<tr>
     <td><a href="{{ company.get_absolute_url }}">{{ company.name }}</a></td>
     <td>{{ company.user }}</td>
     <td>{{ company.created|date:"d/m/Y" }}</td>
-  </tr>
+</tr>
+
+{% empty %}
+<tr>
+    <td colspan="3" class="text-center bg-warning "> Não há empresas registradas </td>
+</tr>
 {% endfor %}
+
