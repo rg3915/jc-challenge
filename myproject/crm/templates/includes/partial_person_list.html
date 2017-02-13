@@ -1,6 +1,6 @@
 {% for person in person_list %}
   <tr>
-    <td><a href="{ person.get_absolute_url }}">{{ person.name }}</a></td>
+    <td><a href="{{ person.get_absolute_url }}">{{ person.name }}</a></td>
     <td>{{ person.email }}</td>
     <td>{{ person.phone }}</td>
     <td>{{ person.user }}</td>

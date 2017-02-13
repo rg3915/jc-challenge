@@ -139,3 +139,9 @@ def person_create(request):
     else:
         form = PersonForm()
     return person_create_form(request, form, 'crm/person_form.html')
+
+
+class PersonDetail(DetailView):
+    model = Person
+    slug_field = 'pk_uuid'
+    slug_url_kwarg = 'uuid'
