@@ -45,7 +45,7 @@
   </table>
 
   <!-- edit -->
-  <button id="edit-company" type="button" class="btn btn-warning js-company-update" data-url="{ url 'crm:company_update' company.pk_uuid %}">
+  <button id="edit-person" type="button" class="btn btn-warning js-person-update" data-url="{% url 'crm:person_update' person.pk_uuid %}">
     <span class="fa fa-pencil"></span> Editar
   </button>
 
@@ -78,7 +78,7 @@
 </div>
 
 <!-- modal -->
-<div id="modal-company" class="modal fade">
+<div id="modal-person" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content"></div>
   </div>

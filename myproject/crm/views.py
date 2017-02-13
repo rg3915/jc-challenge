@@ -145,3 +145,31 @@ class PersonDetail(DetailView):
     model = Person
     slug_field = 'pk_uuid'
     slug_url_kwarg = 'uuid'
+
+
+def person_update_form(request, form, template_name, uuid):
+    data = {}
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            person = Person.objects.get(pk_uuid=uuid)
+            data['html_person_list'] = render_to_string(
+                'person_detail.html', {'object': person})
+            data['is_form_valid'] = True
+        else:
+            data['is_form_valid'] = False
+
+    context = {'form': form}
+    data['html_form'] = render_to_string(
+        template_name, context, request=request)
+
+    return JsonResponse(data)
+
+
+def person_update(request, uuid):
+    person = get_object_or_404(Person, pk_uuid=uuid)
+    if request.method == 'POST':
+        form = PersonForm(request.POST, instance=person)
+    else:
+        form = PersonForm(instance=person)
+    return person_update_form(request, form, 'crm/person_update.html', uuid)

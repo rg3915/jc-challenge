@@ -33,6 +33,11 @@ person_patterns = [
         view=c.PersonDetail.as_view(),
         name='person_detail'
     ),
+    url(
+        regex=re_uuid + r'edit/$',
+        view=c.person_update,
+        name='person_update'
+    ),
 ]
 
 
