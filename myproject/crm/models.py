@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+from django.contrib.auth.models import User
 from django.db import models
 from django.shortcuts import resolve_url as r
-from django.contrib.auth.models import User
+from django.utils.formats import number_format
 from myproject.core.models import UUIDModel, TimeStampedModel
+from .lists import STATUS
 
 
 class Company(UUIDModel, TimeStampedModel):
@@ -43,13 +45,6 @@ class Person(UUIDModel, TimeStampedModel):
         return r('crm:person_detail', uuid=self.pk_uuid)
 
 
-STATUS = (
-    ('fu', 'fazer follow up'),
-    ('na', 'não aprovado'),
-    ('su', 'sucesso'),
-)
-
-
 class Status(UUIDModel, TimeStampedModel):
     user = models.ForeignKey(
         User, verbose_name=u'usuário', related_name='status_user')
@@ -71,3 +66,42 @@ class Status(UUIDModel, TimeStampedModel):
 
     def get_absolute_url(self):
         return r('crm:status_detail', uuid=self.pk_uuid)
+
+
+class Product(models.Model):
+    product = models.CharField('Produto', max_length=100, unique=True)
+    price = models.DecimalField('Preço', max_digits=7, decimal_places=2)
+
+    class Meta:
+        ordering = ['product']
+        verbose_name = 'produto'
+        verbose_name_plural = 'produtos'
+
+    def __unicode__(self):
+        return self.product
+
+    def get_price(self):
+        return "R$ %s" % number_format(self.price, 2)
+
+
+class StatusDetail(models.Model):
+    status = models.ForeignKey('Status', related_name='status_det')
+    product = models.ForeignKey(
+        Product, related_name='product_det', verbose_name='produto')
+    quantity = models.PositiveSmallIntegerField('quantidade')
+    price = models.DecimalField(
+        u'Preço', max_digits=6, decimal_places=2, default=0)
+
+    def __unicode__(self):
+        return str(self.status)
+
+    def get_subtotal(self):
+        return self.price * (self.quantity or 0)
+
+    subtotal = property(get_subtotal)
+
+    def price_formated(self):
+        return "R$ %s" % number_format(self.price, 2)
+
+    def subtotal_formated(self):
+        return "R$ %s" % number_format(self.subtotal, 2)

@@ -6,4 +6,5 @@ django-extensions==1.7.5
 django-localflavor==1.2
 names==0.3.0
 python-decouple==3.0
+pytz==2016.10
 six==1.10.0

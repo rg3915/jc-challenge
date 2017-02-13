@@ -50,7 +50,7 @@ status_patterns = [
     url(r'^add/$', c.status_create, name='status_add'),
     url(
         regex=re_uuid + r'$',
-        view=c.StatusDetail.as_view(),
+        view=c.StatusDetailView.as_view(),
         name='status_detail'
     ),
     url(

@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from .mixins import *
-from .models import Company, Person
+from .models import Company, Person, Product, StatusDetail
 from .forms import CompanyForm, PersonForm
 
 
@@ -144,10 +144,17 @@ class StatusList(CounterMixin, SearchStatusMixin, ListView):
     paginate_by = 15
 
 
-class StatusDetail(DetailView):
+class StatusDetailView(DetailView):
     model = Status
     slug_field = 'pk_uuid'
     slug_url_kwarg = 'uuid'
+
+    def get_context_data(self, **kwargs):
+        sd = StatusDetail.objects.filter(status=self.object)
+        context = super(StatusDetailView, self).get_context_data(**kwargs)
+        # context['count'] = sd.count()
+        context['itens'] = sd
+        return context
 
 
 class StatusUpdate(StatusUpdateMixin, UpdateView):
@@ -161,3 +168,16 @@ class StatusDelete(StatusDeleteMixin, DeleteView):
     model = Status
     slug_field = 'pk_uuid'
     slug_url_kwarg = 'uuid'
+
+
+class ProductList(CounterMixin, ListView):
+    model = Product
+    paginate_by = 20
+
+    def get_queryset(self):
+        products = Product.objects.all()
+        q = self.request.GET.get('search_box')
+        # buscar por produto
+        if q is not None:
+            products = products.filter(product__icontains=q)
+        return products
