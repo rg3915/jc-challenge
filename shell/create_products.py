@@ -5,12 +5,11 @@ from myproject.crm.models import Product
 product_list = []
 
 ''' Lendo os dados de produtos.csv '''
-for i in range(1, 100):
-    with open('shell/produtos.csv', 'r') as f:
-        r = csv.DictReader(f)
-        for dct in r:
-            product_list.append(dct)
-        f.close()
+with open('shell/produtos.csv', 'r') as f:
+    r = csv.DictReader(f)
+    for dct in r:
+        product_list.append(dct)
+    f.close()
 
 
 # Insert Product
